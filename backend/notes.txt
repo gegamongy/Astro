@@ -1,0 +1,112 @@
+Example /chart-2d response:
+
+{
+  "datetime": "2025-02-22T14:30:00Z",
+  "location": {
+    "latitude": 40.7128,
+    "longitude": -74.0060
+  },
+  "house_system": "Spatial",
+  "houses": {
+    "1": 15.2,
+    "2": 45.8,
+    "3": 72.3,
+    "4": 108.5,
+    "5": 139.9,
+    "6": 175.4,
+    "7": 210.2,
+    "8": 240.6,
+    "9": 268.1,
+    "10": 305.0,
+    "11": 336.4,
+    "12": 5.6
+  },
+  "zodiac_cusps": {
+    "Aries": 0.0,
+    "Taurus": 30.0,
+    "Gemini": 60.0,
+    "Cancer": 90.0,
+    "Leo": 120.0,
+    "Virgo": 150.0,
+    "Libra": 180.0,
+    "Scorpio": 210.0,
+    "Sagittarius": 240.0,
+    "Capricorn": 270.0,
+    "Aquarius": 300.0,
+    "Pisces": 330.0
+  },
+  "planet_positions": {
+    "Sun": {
+      "absolute_degree": 303.4,
+      "relative_degree": 3.4,
+      "sign": "Aquarius",
+      "house": 10
+    },
+    "Moon": {
+      "absolute_degree": 122.6,
+      "relative_degree": 2.6,
+      "sign": "Leo",
+      "house": 5
+    },
+    "Mercury": {
+      "absolute_degree": 289.7,
+      "relative_degree": 29.7,
+      "sign": "Capricorn",
+      "house": 9
+    },
+    "Venus": {
+      "absolute_degree": 321.2,
+      "relative_degree": 21.2,
+      "sign": "Aquarius",
+      "house": 11
+    },
+    "Mars": {
+      "absolute_degree": 87.5,
+      "relative_degree": 27.5,
+      "sign": "Cancer",
+      "house": 4
+    },
+    "Jupiter": {
+      "absolute_degree": 212.8,
+      "relative_degree": 2.8,
+      "sign": "Scorpio",
+      "house": 8
+    },
+    "Saturn": {
+      "absolute_degree": 152.3,
+      "relative_degree": 2.3,
+      "sign": "Virgo",
+      "house": 6
+    },
+    "Uranus": {
+      "absolute_degree": 45.7,
+      "relative_degree": 15.7,
+      "sign": "Taurus",
+      "house": 2
+    },
+    "Neptune": {
+      "absolute_degree": 338.1,
+      "relative_degree": 8.1,
+      "sign": "Pisces",
+      "house": 12
+    },
+    "Pluto": {
+      "absolute_degree": 274.9,
+      "relative_degree": 4.9,
+      "sign": "Capricorn",
+      "house": 9
+    }
+  }
+}
+
+
+
+
+
+Aspect	             Symbol	  Color (Commonly Used)	Line Style
+Conjunction (0°)	    ☌	       Dark red or black	    Solid
+Sextile     (60°)	    ⚹	       Blue or green	        Dashed
+Square      (90°)   	□	       Red	                  Solid
+Trine       (120°)	  △	       Blue or green	        Solid
+Opposition  (180°)  	☍	       Red	                  Solid
+Quincunx    (150°)	  ⚻	       Purple or Gray	        Dashed or Dotted
