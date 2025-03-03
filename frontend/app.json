@@ -2,6 +2,15 @@
   "expo": {
     "name": "QAstro",
     "slug": "QAstro",
-    "version": "1.0.0"
+    "version": "1.0.0",
+    "plugins": [
+      "expo-router"
+    ],
+    "android": {
+      "package": "com.vinesofdionysus.QAstro"
+    },
+    "ios": {
+      "bundleIdentifier": "com.vinesofdionysus.QAstro"
+    }
   }
 }

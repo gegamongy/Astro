@@ -1,4 +1,4 @@
-package com.qastro
+package com.vinesofdionysus.QAstro
 
 import android.os.Build
 import android.os.Bundle

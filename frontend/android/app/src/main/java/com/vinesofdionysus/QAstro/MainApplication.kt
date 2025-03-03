@@ -1,4 +1,4 @@
-package com.qastro
+package com.vinesofdionysus.QAstro
 
 import android.app.Application
 import android.content.res.Configuration
