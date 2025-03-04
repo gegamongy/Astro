@@ -8,7 +8,10 @@ import Planets from "./Planets"
 import AspectLines from "./AspectLines";
 import { HoroscopeContext } from "../../context/HoroscopeContext";
 
-const AstrologyChart2D = ({ size = 350, outerRingWidth = 35, innerRingWidth = 20 }) => {
+const AstrologyChart2D = ({ chartData, size = 350, outerRingWidth = 35, innerRingWidth = 20 }) => {
+  
+  if (!chartData) return null; // Handle missing data
+  
   const { horoscopeData } = useContext(HoroscopeContext);
 
   const radius = size / 2;
@@ -27,8 +30,8 @@ const AstrologyChart2D = ({ size = 350, outerRingWidth = 35, innerRingWidth = 20
 
   // const houseCusps = [0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330] // Default evenly spaced
 
-  const planetPositions = horoscopeData?.planet_positions;
-  const houses = horoscopeData?.houses;
+  const planetPositions = chartData.planet_positions;
+  const houses = chartData.houses;
  
   const degreeMarkerSpacing = 2;
   const majorDegreeMarkerSpacing = 10;
@@ -76,7 +79,6 @@ const AstrologyChart2D = ({ size = 350, outerRingWidth = 35, innerRingWidth = 20
           innerRingWidth={innerRingWidth}
           houses={houses}
         />
-        
         
 
         <Planets

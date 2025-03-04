@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { 
   View, Text, FlatList, TextInput, TouchableOpacity, 
   StyleSheet, Dimensions 
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { useRouter } from "expo-router";  // Import useRouter for navigation
+import { getMyCharts } from "../../services/horoscopeAPI";
 
 // Get screen width for dynamic sizing
 const screenWidth = Dimensions.get("window").width;
@@ -18,7 +20,7 @@ const pinnedCharts = [
   { id: "4", name: "Transiart" },
 ];
 
-const charts = [
+const my_charts = [
   { id: "add", name: "Add Chart" }, // "+" Button
   { id: "3", name: "Synastry Chart" },
   { id: "4", name: "Composite Chart" },
@@ -29,7 +31,19 @@ const charts = [
 ];
 
 export default function MyChartsScreen() {
+  const router = useRouter();  // Initialize router for navigation
   const [search, setSearch] = useState("");
+  const [charts, setCharts] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchCharts = async () => {
+      const data = await getMyCharts();
+      setCharts(data);
+      setLoading(false);
+    };
+    fetchCharts();
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -67,11 +81,14 @@ export default function MyChartsScreen() {
 
         {/* Charts List */}
         <FlatList
-          data={charts}
+          data={my_charts}
           keyExtractor={(item) => item.id}
           numColumns={2}
           renderItem={({ item }) => (
-            <TouchableOpacity style={[styles.chartTile, { width: tileSize, height: tileSize }]}>
+            <TouchableOpacity 
+              style={[styles.chartTile, { width: tileSize, height: tileSize }]}
+              onPress={() => item.id === "add" ? router.push("/add-chart") : null} // Navigate to add-chart page
+            >
               {item.id === "add" ? (
                 <Ionicons name="add" size={40} color="gray" />
               ) : (

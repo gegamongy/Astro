@@ -30,7 +30,7 @@ export default function HoroscopeScreen() {
   return (
     
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-        {horoscopeData ? <AstrologyChart2D/> : <ActivityIndicator size="large" />}
+        {horoscopeData ? <AstrologyChart2D chartData={horoscopeData}/> : <ActivityIndicator size="large" />}
 
       </View>
     

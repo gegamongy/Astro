@@ -11,7 +11,7 @@ const API_BASE_URL = 'http://192.168.1.73:6000';  // Your Express server URL
  */
 export const getCurrentHoroscope = async (datetime, latitude, longitude) => {
   try {
-    const response = await axios.get(`${API_BASE_URL}/api/get-current-horoscope`, {
+    const response = await axios.get(`${API_BASE_URL}/api/swiss/get-current-horoscope`, {
       params: { datetime, latitude, longitude },
     });
 
@@ -19,5 +19,34 @@ export const getCurrentHoroscope = async (datetime, latitude, longitude) => {
   } catch (error) {
     console.error('Error fetching horoscope pussy:', error.response?.data || error.message);
     throw error; // Rethrow for handling in UI
+  }
+};
+
+export const getMyCharts = async () => {
+  try {
+    const response = await axios.get(`${API_BASE_URL}/api/horoscope/get-my-charts`);
+    return response.data; // Assumes the API returns an array of charts
+  } catch (error) {
+    console.error("Error fetching charts:", error);
+    return [];
+  }
+};
+
+export const addChart = async (chartData) => {
+  console.log('Trying to call addChart from horoscopeAPI')
+  try {
+    const response = await axios.post(`${API_BASE_URL}/api/horoscope/add-chart`, chartData, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    return response.data; // Return the API response data
+  } catch (error) {
+    console.error("API error - could not add Chart:", error);
+    return {
+      success: false,
+      message: error.response?.data?.message || "Network error.",
+    };
   }
 };
