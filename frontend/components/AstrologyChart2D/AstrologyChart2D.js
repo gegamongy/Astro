@@ -11,6 +11,7 @@ import { HoroscopeContext } from "../../context/HoroscopeContext";
 const AstrologyChart2D = ({ chartData, size = 300 }) => {
   
   if (!chartData) return null; // Handle missing data
+  console.log("Trying to display AstrologyChart2D. Chart Data: ", chartData);
   
   // const { horoscopeData } = useContext(HoroscopeContext);
 

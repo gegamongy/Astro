@@ -17,7 +17,8 @@ export default function HoroscopeScreen() {
         console.log("Fetching Current Horoscope Data...");
         const data = await getCurrentHoroscope(datetime, latitude, longitude);
         setHoroscopeData(data);
-        console.log("Set Current Horoscope Data: ", data);
+        console.log("HOROSCOPE DATA: ", data)
+        // console.log("Set Current Horoscope Data: ", data);
       } catch (error) {
         console.error("Error fetching horoscope:", error);
       }

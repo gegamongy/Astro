@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
+import { useFocusEffect } from "expo-router";
 import { 
   View, Text, FlatList, TextInput, TouchableOpacity, 
   StyleSheet, Dimensions 
@@ -33,6 +34,7 @@ export default function MyChartsScreen() {
 
   // Function to refresh charts
   const refreshCharts = async () => {
+    console.log('Refresh charts called')
     setLoading(true);  // Show loading indicator if needed
     const data = await getMyCharts();
     setCharts(data);
@@ -43,9 +45,16 @@ export default function MyChartsScreen() {
    const pinnedCharts = charts.filter(chart => chart.pinned);
    const unpinnedCharts = charts.filter(chart => !chart.pinned);
 
-  useEffect(() => {
-    refreshCharts();
-  }, []);
+//   useEffect(() => {
+//     refreshCharts();
+//   }, []);
+
+  useFocusEffect(
+    useCallback(() => {
+        console.log("UseFocusEffect called");
+        refreshCharts();
+    }, [])
+  );
 
   return (
     <View style={styles.container}>

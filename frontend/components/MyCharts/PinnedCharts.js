@@ -3,6 +3,7 @@ import { View, Text, FlatList, StyleSheet, Dimensions, TouchableOpacity } from "
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import ChartOptionsModal from "./ChartOptionsModal"; // Import the modal
+import AstrologyChart2D from "../AstrologyChart2D/AstrologyChart2D";
 
 
 const screenWidth = Dimensions.get("window").width;
@@ -36,7 +37,8 @@ export default function PinnedCharts({ pinnedCharts, refreshCharts }) {
                 onLongPress={() => handleLongPress(item)}
                 >
                     <Ionicons name="pin" size={16} color="gold" style={styles.pinIcon} />
-                <Text style={styles.chartText}>{item.name}</Text>
+                    <Text style={styles.chartText}>{item.name}</Text>
+                    <AstrologyChart2D size={tileSize * 0.65} chartData={item} />
             </TouchableOpacity>
             )}
             showsHorizontalScrollIndicator={false}

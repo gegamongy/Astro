@@ -3,6 +3,7 @@ import { FlatList, Text, TouchableOpacity, StyleSheet, Dimensions, Alert } from 
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import ChartOptionsModal from "./ChartOptionsModal"; // Import the modal
+import AstrologyChart2D from "../AstrologyChart2D/AstrologyChart2D";
 import { deleteChart, togglePinChart } from "../../services/horoscopeAPI"; // Import API functions
 
 const screenWidth = Dimensions.get("window").width;
@@ -20,7 +21,7 @@ export default function ChartsList({ charts, refreshCharts }) {
     setSelectedChart(null);
   };
 
-  
+  console.log('ChartsList.js - Chart: ', charts)
   return (
     <>
       <FlatList
@@ -36,7 +37,12 @@ export default function ChartsList({ charts, refreshCharts }) {
             {item._id === "add" ? (
               <Ionicons name="add" size={40} color="gray" />
             ) : (
-              <Text style={styles.chartText}>{item.name}</Text>
+            <>
+                <Text style={styles.chartText}>{item.name}</Text>
+                <AstrologyChart2D size={tileSize * 0.75} chartData={item} />
+                
+              </>
+              
             )}
           </TouchableOpacity>
         )}

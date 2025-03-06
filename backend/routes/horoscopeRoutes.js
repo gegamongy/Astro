@@ -38,7 +38,13 @@ router.post("/add-chart", async (req, res) => {
       const formattedDateTime = new Date(datetime);
       const planet_positions = await getPlanetaryPositions(formattedDateTime, latitude, longitude);
       const houses = await getHouseCusps(formattedDateTime, latitude, longitude);
-      
+      // Convert array to an object with numbered keys as strings
+      const houseObject = houses.reduce((acc, value, index) => {
+        acc[index + 1] = value; // Keys should be 1-12 as strings
+        return acc;
+      }, {});
+
+      console.log('Add Chart Endpoint - current houses: ', houseObject)
 
       // Create new chart
       const newChart = new Chart({
@@ -48,9 +54,9 @@ router.post("/add-chart", async (req, res) => {
         show_shared_aspects: showSharedAspects,
         selected_houses_chart: selectedHousesChart,
         planet_positions,
-        houses,
+        houses: houseObject,
       });
-  
+      console.log('NEW CHART: ', newChart)
       // Save to database
       await newChart.save();
   

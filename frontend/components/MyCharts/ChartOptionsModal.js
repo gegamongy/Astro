@@ -1,5 +1,5 @@
 import React from "react";
-import { Modal, View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { Alert, Modal, View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { togglePinChart, deleteChart } from "../../services/horoscopeAPI";
 // import { useRouter } from "expo-router";
@@ -10,6 +10,7 @@ export default function ChartOptionsModal({ chart, onClose, onEdit, refreshChart
 
   
     const handleDelete = async () => {
+        console.log('HANDLE DELETE Called')
       Alert.alert(
         "Delete Chart?",
         "Are you sure you want to delete this chart? This action cannot be undone.",
