@@ -2,7 +2,7 @@ import React from "react"
 import { View } from "react-native";
 import { Path, Text } from "react-native-svg";
 
-const HouseRing = ({ center, outerInnerRing, innerRadius, innerRingWidth, houses }) => {
+const HouseRing = ({ center, outerInnerRing, innerRadius, innerRingWidth, houses, size }) => {
   const houseCusps = Object.keys(houses) // Get house numbers
   .sort((a, b) => a - b) // Ensure order from 1 to 12
   .map((key) => houses[key]); // Extract angles
@@ -40,10 +40,12 @@ const HouseRing = ({ center, outerInnerRing, innerRadius, innerRingWidth, houses
           if (houseEnd < houseStart) {
             houseEnd += 360;
           }
+
+          const fontSize = size * 0.05;
           const houseMidpoint = (houseStart + houseEnd) / 2;
           const midAngle = (houseMidpoint - 90) * (Math.PI / 180);
           const textX = center + (innerRadius + innerRingWidth / 2) * Math.cos(midAngle);
-          const textY = center + (innerRadius + innerRingWidth / 2) * Math.sin(midAngle) + 5;
+          const textY = center + (innerRadius + innerRingWidth / 2) * Math.sin(midAngle) + fontSize/3;
 
           return (
             <React.Fragment key={`house-${index}`}>
@@ -53,7 +55,7 @@ const HouseRing = ({ center, outerInnerRing, innerRadius, innerRingWidth, houses
               <Text
                 x={textX}
                 y={textY}
-                fontSize="14"
+                fontSize={fontSize}
                 textAnchor="middle"
                 fill="black"
               >

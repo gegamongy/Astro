@@ -16,26 +16,28 @@ const planetSymbols = {
     Pluto: "♇"
 };
 
-const Planets = ({ center, planetRadius, planetPositions}) => {
+const Planets = ({ center, planetRadius, planetPositions, size}) => {
     // Convert `planet_positions` object into an array format
     const planets = Object.entries(planetPositions || {}).map(([name, data]) => ({
         name: planetSymbols[name] || name,  // Fallback in case a name is missing
         degree: data.absolute_degree
     }));
 
+    const fontSize = size * 0.05;
+
     return (
         <View>
             {planets.map((planet, index) => {
                 const angle = (planet.degree - 90) * (Math.PI / 180);
                 const x = center + planetRadius * Math.cos(angle);
-                const y = center + planetRadius * Math.sin(angle);
+                const y = center + planetRadius * Math.sin(angle) + fontSize/3;
 
                 return (
                 <Text
                     key={`planet-${index}`}
                     x={x}
                     y={y}
-                    fontSize="16"
+                    fontSize={fontSize}
                     textAnchor="middle"
                     fill="black"
                 >

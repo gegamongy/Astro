@@ -8,12 +8,19 @@ import Planets from "./Planets"
 import AspectLines from "./AspectLines";
 import { HoroscopeContext } from "../../context/HoroscopeContext";
 
-const AstrologyChart2D = ({ chartData, size = 350, outerRingWidth = 35, innerRingWidth = 20 }) => {
+const AstrologyChart2D = ({ chartData, size = 300 }) => {
   
   if (!chartData) return null; // Handle missing data
   
-  const { horoscopeData } = useContext(HoroscopeContext);
+  // const { horoscopeData } = useContext(HoroscopeContext);
 
+   // Scale all components based on size
+   const outerRingWidth = size * 0.1; // 10% of size
+   const innerRingWidth = size * 0.06; // 6% of size
+  
+  //  const planetRadius = radius * 0.1; // Keep planets inside the house ring
+  //  const aspectRadius = radius * 0.6; // Scale aspect lines too
+ 
   const radius = size / 2;
   const center = radius;
 
@@ -26,17 +33,12 @@ const AstrologyChart2D = ({ chartData, size = 350, outerRingWidth = 35, innerRin
   const outerInnerRing = innerOuterRing + - innerRingSpacing;
   const innerRadius = outerInnerRing - innerRingWidth;
 
-
-
   // const houseCusps = [0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330] // Default evenly spaced
 
   const planetPositions = chartData.planet_positions;
   const houses = chartData.houses;
- 
-  const degreeMarkerSpacing = 2;
-  const majorDegreeMarkerSpacing = 10;
   
-  const planetRadius = innerRadius - 20; // Keep planets inside the house ring
+  const planetRadius = innerRadius - size * 0.08; // Keep planets inside the house ring
 
 
 
@@ -60,8 +62,7 @@ const AstrologyChart2D = ({ chartData, size = 350, outerRingWidth = 35, innerRin
         <DegreeMarkers
           center={center}
           innerRadius={innerRadius}
-          spacing={degreeMarkerSpacing}
-          majorSpacing={majorDegreeMarkerSpacing}
+          size={size}
         />
         
 
@@ -70,6 +71,7 @@ const AstrologyChart2D = ({ chartData, size = 350, outerRingWidth = 35, innerRin
           outerRadius={outerRadius}
           innerOuterRing={innerOuterRing}
           outerRingWidth={outerRingWidth}
+          size={size}
         />
 
         <HouseRing
@@ -78,6 +80,7 @@ const AstrologyChart2D = ({ chartData, size = 350, outerRingWidth = 35, innerRin
           innerRadius={innerRadius}
           innerRingWidth={innerRingWidth}
           houses={houses}
+          size={size}
         />
         
 
@@ -85,6 +88,7 @@ const AstrologyChart2D = ({ chartData, size = 350, outerRingWidth = 35, innerRin
           center={center}
           planetRadius={planetRadius}
           planetPositions={planetPositions}
+          size={size}
         />
 
         <AspectLines

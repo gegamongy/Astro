@@ -2,11 +2,13 @@ import React from "react";
 import { View } from "react-native";
 import { Path, Text } from "react-native-svg";
 
-const ZodiacRing = ({ center, outerRadius, innerOuterRing, outerRingWidth }) => {
+const ZodiacRing = ({ center, outerRadius, innerOuterRing, outerRingWidth, size }) => {
     const ZODIAC_SIGNS = [
         "♈", "♉", "♊", "♋", "♌", "♍",
         "♎", "♏", "♐", "♑", "♒", "♓"
     ];
+
+    
     return (
         <View>
             {/* Outer Zodiac Ring */}
@@ -30,15 +32,16 @@ const ZodiacRing = ({ center, outerRadius, innerOuterRing, outerRingWidth }) => 
                 A ${innerOuterRing},${innerOuterRing} 0 0 0 ${x4},${y4}
                 Z
                 `;
-    
+                
+                const fontSize = size * 0.05;
                 const midAngle = ((index * 30) + 15 - 90) * (Math.PI / 180);
                 const textX = center + (innerOuterRing + outerRingWidth / 2) * Math.cos(midAngle);
-                const textY = center + (innerOuterRing + outerRingWidth / 2) * Math.sin(midAngle) + 5;
-    
+                const textY = center + (innerOuterRing + outerRingWidth / 2) * Math.sin(midAngle) + (fontSize/3); //Divide font size by 3 to get your offset to center the text
+
                 return (
                 <React.Fragment key={`zodiac-${sign}`}>
                     <Path d={pathD} fill="white" stroke="black" strokeWidth="1" />
-                    <Text x={textX} y={textY} fontSize="16" textAnchor="middle" fill="black">
+                    <Text x={textX} y={textY} fontSize={fontSize} textAnchor="middle" fill="black">
                     {sign}
                     </Text>
                 </React.Fragment>

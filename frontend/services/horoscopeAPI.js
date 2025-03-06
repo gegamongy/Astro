@@ -1,6 +1,9 @@
 import axios from 'axios';
+// import * as Network from 'expo-network';
 
-const API_BASE_URL = 'http://192.168.17.1:6000';  // Your Express server URL
+const API_BASE_URL = 'http://192.168.17.1:6000';         // Your Express server URL
+// const API_BASE_URL = `http://${address}:6000`;
+
 
 /**
  * Fetches the current horoscope from the backend.

@@ -1,13 +1,16 @@
 import { Line } from "react-native-svg";
 
-const DegreeMarkers = ({ center, innerRadius, spacing = 2, majorSpacing = 10 }) => {
+const DegreeMarkers = ({ center, size, innerRadius, spacing = 2, majorSpacing = 10 }) => {
   return (
     <>
       {Array.from({ length: 360 / spacing }).map((_, i) => {
         const degree = i * spacing;
         const angle = (degree - 90) * (Math.PI / 180);
         const isMajor = degree % majorSpacing === 0;  // Major markers at 30°
-        const r1 = innerRadius - (isMajor ? 10 : 5); // Major ticks longer
+        const tickLength = size * 0.02; // Scale tick length based on chart size
+        const majorTickLength = size * 0.04; // Major ticks are longer
+
+        const r1 = innerRadius - (isMajor ? majorTickLength : tickLength); // Adjust length proportionally
         const r2 = innerRadius;
 
         const x1 = center + r1 * Math.cos(angle);
