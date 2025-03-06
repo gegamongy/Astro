@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'http://192.168.1.73:6000';  // Your Express server URL
+const API_BASE_URL = 'http://192.168.17.1:6000';  // Your Express server URL
 
 /**
  * Fetches the current horoscope from the backend.
@@ -23,8 +23,10 @@ export const getCurrentHoroscope = async (datetime, latitude, longitude) => {
 };
 
 export const getMyCharts = async () => {
+  console.log('Trying to call getMyCharts from horoscopeAPI')
   try {
     const response = await axios.get(`${API_BASE_URL}/api/horoscope/get-my-charts`);
+    console.log('Successfully retrieved charts: ', response.data)
     return response.data; // Assumes the API returns an array of charts
   } catch (error) {
     console.error("Error fetching charts:", error);
@@ -48,5 +50,35 @@ export const addChart = async (chartData) => {
       success: false,
       message: error.response?.data?.message || "Network error.",
     };
+  }
+};
+
+export const deleteChart = async (chartId) => {
+  try {
+    const response = await axios.delete(`${API_BASE_URL}/api/horoscope/delete-chart/${chartId}`);
+    console.log('Successfully deleted chart: ', chartId);
+    return response.data;
+  } catch (error) {
+    console.error("Error deleting chart:", error.response?.data || error.message);
+    throw error;
+  }
+};
+
+export const togglePinChart = async (chartId, isPinned) => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/api/horoscope/toggle-pin-chart`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ chartId, pinned: isPinned }),
+    });
+
+    const data = await response.json();
+    if (response.ok) {
+      console.log("Chart pinned status updated:", data.chart);
+    } else {
+      console.error("Error:", data.error);
+    }
+  } catch (error) {
+    console.error("Request failed:", error);
   }
 };

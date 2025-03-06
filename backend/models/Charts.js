@@ -54,6 +54,7 @@ const chartSchema = new mongoose.Schema({
   chart_data: [chartDataSchema], // Array of chart data objects
   show_shared_aspects: { type: Boolean, default: false }, // Show shared aspects
   selected_houses_chart: { type: Number, default: null }, // Selected houses chart ID or null
+  pinned: Boolean,
 });
 
 const Chart = mongoose.model("Chart", chartSchema);

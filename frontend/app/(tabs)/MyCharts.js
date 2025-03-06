@@ -6,29 +6,24 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";  // Import useRouter for navigation
 import { getMyCharts } from "../../services/horoscopeAPI";
+import ChartsList from "../../components/MyCharts/ChartsList";
+import PinnedCharts from "../../components/MyCharts/PinnedCharts";
 
 // Get screen width for dynamic sizing
 const screenWidth = Dimensions.get("window").width;
 const tileSize = (screenWidth - 40) / 2; // Ensures 2 tiles per row with spacing
 const pinnedTileSize = tileSize * 0.9;  // Make pinned charts slightly smaller
 
-// Dummy chart data
-const pinnedCharts = [
-  { id: "1", name: "Natal Chart" },
-  { id: "2", name: "Transit Chart" },
-  { id: "3", name: "Trant Chart" },
-  { id: "4", name: "Transiart" },
-];
+// // Dummy chart data
+// const pinnedCharts = [
+//   { id: "1", name: "Natal Chart" },
+//   { id: "2", name: "Transit Chart" },
+//   { id: "3", name: "Trant Chart" },
+//   { id: "4", name: "Transiart" },
+// ];
 
-const my_charts = [
-  { id: "add", name: "Add Chart" }, // "+" Button
-  { id: "3", name: "Synastry Chart" },
-  { id: "4", name: "Composite Chart" },
-  { id: "5", name: "Solar Return" },
-  { id: "6", name: "SynaChart" },
-  { id: "7", name: "Composart" },
-  { id: "8", name: "Solareturn" },
-];
+
+
 
 export default function MyChartsScreen() {
   const router = useRouter();  // Initialize router for navigation
@@ -36,34 +31,26 @@ export default function MyChartsScreen() {
   const [charts, setCharts] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  // Function to refresh charts
+  const refreshCharts = async () => {
+    setLoading(true);  // Show loading indicator if needed
+    const data = await getMyCharts();
+    setCharts(data);
+    setLoading(false);
+  };
+
+   // **Filter pinned and unpinned charts**
+   const pinnedCharts = charts.filter(chart => chart.pinned);
+   const unpinnedCharts = charts.filter(chart => !chart.pinned);
+
   useEffect(() => {
-    const fetchCharts = async () => {
-      const data = await getMyCharts();
-      setCharts(data);
-      setLoading(false);
-    };
-    fetchCharts();
+    refreshCharts();
   }, []);
 
   return (
     <View style={styles.container}>
       {/* Pinned Charts */}
-      <View>
-        <Text style={styles.sectionTitle}>Pinned Charts</Text>
-        <FlatList
-          horizontal
-          data={pinnedCharts}
-          keyExtractor={(item) => item.id}
-          renderItem={({ item }) => (
-            <View style={[styles.pinnedTile, { width: pinnedTileSize, height: pinnedTileSize }]}>
-              <Ionicons name="pin" size={16} color="gold" style={styles.pinIcon} />
-              <Text style={styles.chartText}>{item.name}</Text>
-            </View>
-          )}
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{ paddingBottom: 10 }}
-        />
-      </View>
+      <PinnedCharts pinnedCharts={pinnedCharts} refreshCharts={refreshCharts}/>
 
       {/* Charts Section */}
       <View style={styles.chartsSection}>
@@ -80,24 +67,7 @@ export default function MyChartsScreen() {
         </View>
 
         {/* Charts List */}
-        <FlatList
-          data={my_charts}
-          keyExtractor={(item) => item.id}
-          numColumns={2}
-          renderItem={({ item }) => (
-            <TouchableOpacity 
-              style={[styles.chartTile, { width: tileSize, height: tileSize }]}
-              onPress={() => item.id === "add" ? router.push("/add-chart") : null} // Navigate to add-chart page
-            >
-              {item.id === "add" ? (
-                <Ionicons name="add" size={40} color="gray" />
-              ) : (
-                <Text style={styles.chartText}>{item.name}</Text>
-              )}
-            </TouchableOpacity>
-          )}
-          columnWrapperStyle={styles.row}
-        />
+        <ChartsList charts={unpinnedCharts} refreshCharts={refreshCharts}/>
       </View>
     </View>
   );

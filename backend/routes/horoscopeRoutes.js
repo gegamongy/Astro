@@ -77,4 +77,33 @@ router.delete("/delete-chart/:id", async (req, res) => {
   }
 });
 
+
+// Route to toggle the pinned status of a chart
+router.post("/toggle-pin-chart", async (req, res) => {
+    console.log('Pin chart endpoint called.')
+    try {
+      const { chartId, pinned } = req.body;
+  
+      if (!chartId || typeof pinned !== "boolean") {
+        return res.status(400).json({ error: "Invalid request parameters" });
+      }
+  
+      const updatedChart = await Chart.findByIdAndUpdate(
+        chartId,
+        { pinned },
+        { new: true } // Return the updated document
+      );
+  
+      if (!updatedChart) {
+        return res.status(404).json({ error: "Chart not found" });
+      }
+  
+      res.status(200).json({ message: "Chart updated successfully", chart: updatedChart });
+    } catch (error) {
+      console.error("Error updating pinned status:", error);
+      res.status(500).json({ error: "Internal server error" });
+    }
+  });
+
+
 module.exports = router;
