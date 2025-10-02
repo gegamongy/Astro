@@ -9,8 +9,6 @@ const HouseRing = ({ center, outerInnerRing, innerRadius, innerRingWidth, houses
   .sort((a, b) => a - b) // Ensure order from 1 to 12
   .map((key) => houses[key]); // Extract angles
 
-
-
   return (
     <View>
         {/* Inner House Ring with independent divisions */}

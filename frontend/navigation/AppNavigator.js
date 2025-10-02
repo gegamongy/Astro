@@ -6,7 +6,7 @@ import HomeScreen from '../app/HomeScreen';
 // import AstrologyScreen from '../screens/AstrologyScreen.';
 import CompatibilityScreen from '../app/CompatibilityScreen';
 import { HoroscopeProvider } from '../context/HoroscopeContext';
-import AstrologyScreen from '../app/AstrologyScreen.';
+import AstrologyScreen from '../app/NotAstrologyScreen.';
 import { Stack } from "expo-router";
 
 // const Stack = createStackNavigator();
